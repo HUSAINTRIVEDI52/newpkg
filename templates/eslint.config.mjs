@@ -1,5 +1,5 @@
 import js from "@eslint/js";
-import importPlugin from "eslint-plugin-import";
+import importXPlugin from "eslint-plugin-import-x";
 import prettier from "eslint-config-prettier";
 
 // Common globals for JS/TS projects
@@ -32,7 +32,7 @@ try {
 const jsConfig = {
     files: ["**/*.js", "**/*.mjs", "**/*.cjs", "**/*.jsx"],
     plugins: {
-        import: importPlugin,
+        "import-x": importXPlugin,
     },
     languageOptions: {
         ecmaVersion: "latest",
@@ -40,13 +40,13 @@ const jsConfig = {
         globals: commonGlobals,
     },
     settings: {
-        "import/resolver": {
+        "import-x/resolver": {
             node: true,
         },
     },
     rules: {
         ...js.configs.recommended.rules,
-        ...importPlugin.configs.recommended.rules,
+        ...importXPlugin.configs.recommended.rules,
         "no-undef": "error",
         "no-unreachable": "error",
         "no-unsafe-finally": "error",
@@ -60,9 +60,9 @@ const jsConfig = {
         "no-var": "error",
         "prefer-const": "error",
         "no-unused-vars": "off",
-        "import/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
-        "import/no-unresolved": "error",
-        "import/no-duplicates": "error",
+        "import-x/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
+        "import-x/no-unresolved": "error",
+        "import-x/no-duplicates": "error",
         "no-console": ["warn"],
         "no-debugger": "error",
         semi: ["error", "always"],
@@ -81,10 +81,10 @@ const tsConfig = (tseslint && tsparser) ? {
     },
     plugins: {
         "@typescript-eslint": tseslint,
-        import: importPlugin,
+        "import-x": importXPlugin,
     },
     settings: {
-        "import/resolver": {
+        "import-x/resolver": {
             typescript: true,
             node: true,
         },
@@ -92,8 +92,8 @@ const tsConfig = (tseslint && tsparser) ? {
     rules: {
         ...tseslint.configs.recommended.rules,
         ...tseslint.configs["recommended-requiring-type-checking"]?.rules,
-        ...importPlugin.configs.recommended.rules,
-        ...importPlugin.configs.typescript.rules,
+        ...importXPlugin.configs.recommended.rules,
+        ...importXPlugin.configs.typescript.rules,
         "no-unused-vars": "off",
         "no-shadow": "off",
         "no-use-before-define": "off",
@@ -112,9 +112,9 @@ const tsConfig = (tseslint && tsparser) ? {
         "@typescript-eslint/no-inferrable-types": "warn",
         "@typescript-eslint/prefer-optional-chain": "error",
         "@typescript-eslint/prefer-nullish-coalescing": "error",
-        "import/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
-        "import/no-unresolved": "error",
-        "import/no-duplicates": "error",
+        "import-x/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
+        "import-x/no-unresolved": "error",
+        "import-x/no-duplicates": "error",
         "no-console": ["warn"],
         "no-debugger": "error",
         semi: ["error", "always"],

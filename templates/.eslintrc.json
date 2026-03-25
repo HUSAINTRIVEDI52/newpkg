@@ -11,13 +11,13 @@
     "node": true,
     "es2021": true
   },
-  "plugins": ["@typescript-eslint", "import"],
+  "plugins": ["@typescript-eslint", "import-x"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
+    "plugin:import-x/recommended",
+    "plugin:import-x/typescript",
     "prettier"
   ],
   "rules": {
@@ -51,9 +51,9 @@
     "@typescript-eslint/no-inferrable-types": "warn",
     "@typescript-eslint/prefer-optional-chain": "error",
     "@typescript-eslint/prefer-nullish-coalescing": "error",
-    "import/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
-    "import/no-unresolved": "error",
-    "import/no-duplicates": "error",
+    "import-x/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
+    "import-x/no-unresolved": "error",
+    "import-x/no-duplicates": "error",
     "no-console": ["warn"],
     "no-debugger": "error",
     "semi": ["error", "always"]
