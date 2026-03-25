@@ -84,8 +84,27 @@ const tsConfig = (tseslint && tsparser) ? {
     },
 } : null;
 
+const tsFallback = {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        globals: commonGlobals,
+    },
+    rules: {
+        "no-unused-vars": "warn",
+    },
+};
+
+// If TS files are present but plugins failed to load, use the fallback to avoid "File ignored" warnings.
+// Note: This might still cause syntax errors if the default parser can't handle the TS syntax,
+// but it's better than silent ignores for users who expect linting.
+if (!tsConfig) {
+    console.warn("⚠️ [ESLint] TypeScript plugins not found. Using basic JS rules for .ts files.");
+}
+
 export default [
     js.configs.recommended,
     jsConfig,
-    ...(tsConfig ? [tsConfig] : []),
+    ...(tsConfig ? [tsConfig] : [tsFallback]),
 ];
