@@ -192,7 +192,7 @@ else
   if [ -n "$COLLECTIONS" ]; then
     if ! command -v newman >/dev/null 2>&1; then
       echo "[Newman] Installing newman..."
-      npm install -g newman newman-reporter-htmlextra >/dev/null 2>&1 || true
+      npm install -g newman newman-reporter-htmlextra --legacy-peer-deps >/dev/null 2>&1 || true
     fi
 
     mkdir -p newman-reports

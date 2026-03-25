@@ -22,6 +22,7 @@ if (!fs.existsSync(SENTINEL)) {
     cwd: PKG_DIR,
     stdio: 'inherit',
     shell: process.platform === 'win32',
+    env: { ...process.env, NPM_CONFIG_LEGACY_PEER_DEPS: 'true' },
   });
   if (result.status !== 0) {
     console.error('[cs-setup] Failed to install own dependencies. Please run:');
