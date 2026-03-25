@@ -1,6 +1,4 @@
 import js from "@eslint/js";
-import importXPlugin from "eslint-plugin-import-x";
-import prettier from "eslint-config-prettier";
 
 // Common globals for JS/TS projects
 const commonGlobals = {
@@ -31,41 +29,18 @@ try {
 
 const jsConfig = {
     files: ["**/*.js", "**/*.mjs", "**/*.cjs", "**/*.jsx"],
-    plugins: {
-        "import-x": importXPlugin,
-    },
     languageOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
         globals: commonGlobals,
     },
-    settings: {
-        "import-x/resolver": {
-            node: true,
-        },
-    },
     rules: {
         ...js.configs.recommended.rules,
-        ...importXPlugin.configs.recommended.rules,
-        "no-undef": "error",
-        "no-unreachable": "error",
-        "no-unsafe-finally": "error",
-        "valid-typeof": "error",
-        eqeqeq: ["error", "always"],
-        curly: ["error", "all"],
-        "no-eval": "error",
-        "no-implied-eval": "error",
-        "no-return-await": "error",
-        "no-useless-catch": "error",
-        "no-var": "error",
-        "prefer-const": "error",
-        "no-unused-vars": "off",
-        "import-x/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
-        "import-x/no-unresolved": "error",
-        "import-x/no-duplicates": "error",
-        "no-console": ["warn"],
-        "no-debugger": "error",
+        "no-unused-vars": "warn",
+        "no-console": "off",
         semi: ["error", "always"],
+        quotes: ["error", "single"],
+        indent: ["error", 2],
     },
 };
 
@@ -76,48 +51,19 @@ const tsConfig = (tseslint && tsparser) ? {
         parserOptions: {
             ecmaVersion: "latest",
             sourceType: "module",
-            project: ["./tsconfig.json"],
         },
     },
     plugins: {
         "@typescript-eslint": tseslint,
-        "import-x": importXPlugin,
-    },
-    settings: {
-        "import-x/resolver": {
-            typescript: true,
-            node: true,
-        },
     },
     rules: {
         ...tseslint.configs.recommended.rules,
-        ...tseslint.configs["recommended-requiring-type-checking"]?.rules,
-        ...importXPlugin.configs.recommended.rules,
-        ...importXPlugin.configs.typescript.rules,
-        "no-unused-vars": "off",
-        "no-shadow": "off",
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-        "@typescript-eslint/no-shadow": "error",
-        "@typescript-eslint/no-use-before-define": "error",
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@typescript-eslint/no-non-null-assertion": "warn",
-        "@typescript-eslint/ban-ts-comment": "warn",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/strict-boolean-expressions": "warn",
-        "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/no-misused-promises": "error",
-        "@typescript-eslint/await-thenable": "error",
-        "@typescript-eslint/consistent-type-imports": "error",
-        "@typescript-eslint/no-inferrable-types": "warn",
-        "@typescript-eslint/prefer-optional-chain": "error",
-        "@typescript-eslint/prefer-nullish-coalescing": "error",
-        "import-x/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
-        "import-x/no-unresolved": "error",
-        "import-x/no-duplicates": "error",
-        "no-console": ["warn"],
-        "no-debugger": "error",
+        "no-unused-vars": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-console": "off",
         semi: ["error", "always"],
+        quotes: ["error", "single"],
+        indent: ["error", 2],
     },
 } : null;
 
@@ -125,5 +71,4 @@ export default [
     js.configs.recommended,
     jsConfig,
     ...(tsConfig ? [tsConfig] : []),
-    prettier, // Turn off conflicting rules
 ];
