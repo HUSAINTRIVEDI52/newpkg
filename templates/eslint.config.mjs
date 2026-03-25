@@ -31,9 +31,13 @@ const jsConfig = {
     ...js.configs.recommended,
     rules: {
         ...js.configs.recommended.rules,
-        "no-console": "off",
-        "no-undef": "off",
-        "no-unused-vars": "off",
+        "no-console": "warn",
+        "no-undef": "error",
+        eqeqeq: ["error", "always"],
+        indent: ["error", 2],
+        quotes: ["error", "single"],
+        semi: ["error", "always"],
+        "prefer-const": "warn",
     },
     languageOptions: {
         ecmaVersion: "latest",
@@ -47,7 +51,7 @@ const tsConfig = (tseslint && tsparser) ? {
     languageOptions: {
         parser: tsparser,
         parserOptions: {
-            project: "./tsconfig.json",
+            ecmaVersion: "latest",
             sourceType: "module",
         },
     },
@@ -56,12 +60,13 @@ const tsConfig = (tseslint && tsparser) ? {
     },
     rules: {
         ...tseslint.configs.recommended.rules,
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-unused-vars": ["warn"],
-        "no-console": "off",
-        "no-undef": "off",
-        "no-unused-vars": "off",
+        "no-console": "warn",
+        "no-undef": "error",
+        eqeqeq: ["error", "always"],
+        indent: ["error", 2],
+        quotes: ["error", "single"],
+        semi: ["error", "always"],
+        "prefer-const": "warn",
     },
 } : null;
 
