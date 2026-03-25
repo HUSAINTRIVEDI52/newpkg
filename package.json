@@ -20,7 +20,10 @@
   "scripts": {
     "postinstall": "node ./bin/index.js install",
     "prepare": "husky || true",
-    "test": "node --test"
+    "test": "node --test",
+    "test:smoke": "node --test",
+    "test:newman": "node tests/run-newman-cloud.mjs",
+    "test:all": "npm run test:smoke && npm run test:newman"
   },
   "dependencies": {
     "chalk": "^4.1.2",

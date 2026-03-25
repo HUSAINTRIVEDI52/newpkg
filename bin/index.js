@@ -74,14 +74,14 @@ if (isPostInstall) {
 // If process.cwd() is the SAME as initCwd, it means someone is running 
 // 'npm install' inside the cs-setup folder itself (development) — skip.
 // ─────────────────────────────────────────────────────────────────────────────
-if (isPostInstall) {
+if (isPostInstall || (command === 'init' && initCwd)) {
   const currentDir = path.resolve(process.cwd());
   let projectDir = initCwd ? path.resolve(initCwd) : null;
 
-  console.log(`[cs-setup] Post-install check: currentDir=${currentDir}, projectDir=${projectDir}`);
+  console.log(`[cs-setup] Target check: currentDir=${currentDir}, projectDir=${projectDir}`);
 
-  // If we are developing (currentDir === projectDir), skip setup
-  if (currentDir === projectDir) {
+  // If we are developing (currentDir === projectDir) and NOT forcing init, skip setup
+  if (currentDir === projectDir && isPostInstall) {
     console.log('[cs-setup] Development detected — skipping automatic setup.');
     process.exit(0);
   }
