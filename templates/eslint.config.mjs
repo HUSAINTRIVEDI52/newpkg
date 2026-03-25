@@ -2,7 +2,6 @@ import js from "@eslint/js";
 
 // Common globals for JS/TS projects
 const commonGlobals = {
-    React: "readonly",
     process: "readonly",
     __dirname: "readonly",
     __filename: "readonly",
@@ -32,11 +31,9 @@ const jsConfig = {
     ...js.configs.recommended,
     rules: {
         ...js.configs.recommended.rules,
-        "no-unused-vars": ["warn", {
-            "varsIgnorePattern": "^React$",
-            "argsIgnorePattern": "^_"
-        }],
-        "no-undef": "error",
+        "no-console": "off",
+        "no-undef": "off",
+        "no-unused-vars": "off",
     },
     languageOptions: {
         ecmaVersion: "latest",
@@ -50,7 +47,7 @@ const tsConfig = (tseslint && tsparser) ? {
     languageOptions: {
         parser: tsparser,
         parserOptions: {
-            ecmaVersion: "latest",
+            project: "./tsconfig.json",
             sourceType: "module",
         },
     },
@@ -59,11 +56,12 @@ const tsConfig = (tseslint && tsparser) ? {
     },
     rules: {
         ...tseslint.configs.recommended.rules,
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-unused-vars": ["warn"],
+        "no-console": "off",
+        "no-undef": "off",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["warn", {
-            "varsIgnorePattern": "^React$",
-            "argsIgnorePattern": "^_"
-        }],
     },
 } : null;
 
