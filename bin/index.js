@@ -180,8 +180,7 @@ if (isPostInstall) {
     await installHusky(gitRoot);
     await installGitleaks(gitRoot);
     await installSonarScanner();
-    await installDevDependency('eslint');
-    await installDevDependency('@eslint/js');
+    await installDevDependency(['eslint', '@eslint/js']);
 
     // Setup ESLint with TypeScript support
     await setupESLintConfig();
