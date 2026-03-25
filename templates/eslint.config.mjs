@@ -29,18 +29,19 @@ try {
 
 const jsConfig = {
     files: ["**/*.js", "**/*.mjs", "**/*.cjs", "**/*.jsx"],
+    ...js.configs.recommended,
+    rules: {
+        ...js.configs.recommended.rules,
+        "no-unused-vars": ["warn", {
+            "varsIgnorePattern": "^React$",
+            "argsIgnorePattern": "^_"
+        }],
+        "no-undef": "error",
+    },
     languageOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
         globals: commonGlobals,
-    },
-    rules: {
-        ...js.configs.recommended.rules,
-        "no-unused-vars": "warn",
-        "no-console": "off",
-        semi: ["error", "always"],
-        quotes: ["error", "single"],
-        indent: ["error", 2],
     },
 };
 
@@ -58,12 +59,11 @@ const tsConfig = (tseslint && tsparser) ? {
     },
     rules: {
         ...tseslint.configs.recommended.rules,
-        "no-unused-vars": "warn",
-        "@typescript-eslint/no-unused-vars": "warn",
-        "no-console": "off",
-        semi: ["error", "always"],
-        quotes: ["error", "single"],
-        indent: ["error", 2],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", {
+            "varsIgnorePattern": "^React$",
+            "argsIgnorePattern": "^_"
+        }],
     },
 } : null;
 
