@@ -33,7 +33,8 @@ const jsConfig = {
     rules: {
         ...js.configs.recommended.rules,
         "no-console": "warn",
-        "no-undef": "warn",
+        "no-undef": "off",
+        "no-unused-vars": "off",
         eqeqeq: ["error", "always"],
         indent: ["error", 2],
         quotes: ["error", "single"],
@@ -62,7 +63,9 @@ const tsConfig = (tseslint && tsparser) ? {
     rules: {
         ...tseslint.configs.recommended.rules,
         "no-console": "warn",
-        "no-undef": "warn",
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["warn"],
         eqeqeq: ["error", "always"],
         indent: ["error", 2],
         quotes: ["error", "single"],
