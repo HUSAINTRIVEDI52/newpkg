@@ -32,11 +32,26 @@ const jsConfig = {
     ...js.configs.recommended,
     rules: {
         ...js.configs.recommended.rules,
-        "no-unused-vars": ["warn", {
+        "no-unused-vars": ["error", {
             "varsIgnorePattern": "^React$",
             "argsIgnorePattern": "^_"
         }],
         "no-undef": "error",
+        "no-console": "error",
+        "no-debugger": "error",
+        "no-constant-condition": "error",
+        "no-empty": "error",
+        "no-extra-semi": "error",
+        "no-inner-declarations": "error",
+        "no-irregular-whitespace": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-sparse-arrays": "error",
+        "no-unexpected-multiline": "error",
+        "no-unreachable": "error",
+        "no-unsafe-finally": "error",
+        "no-unsafe-negation": "error",
+        "use-isnan": "error",
+        "valid-typeof": "error",
     },
     languageOptions: {
         ecmaVersion: "latest",
@@ -60,10 +75,12 @@ const tsConfig = (tseslint && tsparser) ? {
     rules: {
         ...tseslint.configs.recommended.rules,
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["warn", {
+        "@typescript-eslint/no-unused-vars": ["error", {
             "varsIgnorePattern": "^React$",
             "argsIgnorePattern": "^_"
         }],
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-non-null-assertion": "error"
     },
 } : null;
 

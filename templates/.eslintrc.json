@@ -26,11 +26,26 @@
     "exports": "readonly"
   },
   "rules": {
-    "no-unused-vars": ["warn", {
+    "no-unused-vars": ["error", {
       "varsIgnorePattern": "^React$",
       "argsIgnorePattern": "^_"
     }],
-    "no-undef": "error"
+    "no-undef": "error",
+    "no-console": "error",
+    "no-debugger": "error",
+    "no-constant-condition": "error",
+    "no-empty": "error",
+    "no-extra-semi": "error",
+    "no-inner-declarations": "error",
+    "no-irregular-whitespace": "error",
+    "no-mixed-spaces-and-tabs": "error",
+    "no-sparse-arrays": "error",
+    "no-unexpected-multiline": "error",
+    "no-unreachable": "error",
+    "no-unsafe-finally": "error",
+    "no-unsafe-negation": "error",
+    "use-isnan": "error",
+    "valid-typeof": "error"
   },
     "overrides": [
     {
