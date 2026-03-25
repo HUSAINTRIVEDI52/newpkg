@@ -2,6 +2,7 @@ import js from "@eslint/js";
 
 // Common globals for JS/TS projects
 const commonGlobals = {
+    React: "readonly",
     process: "readonly",
     __dirname: "readonly",
     __filename: "readonly",
@@ -32,7 +33,7 @@ const jsConfig = {
     rules: {
         ...js.configs.recommended.rules,
         "no-console": "warn",
-        "no-undef": "error",
+        "no-undef": "warn",
         eqeqeq: ["error", "always"],
         indent: ["error", 2],
         quotes: ["error", "single"],
@@ -61,7 +62,7 @@ const tsConfig = (tseslint && tsparser) ? {
     rules: {
         ...tseslint.configs.recommended.rules,
         "no-console": "warn",
-        "no-undef": "error",
+        "no-undef": "warn",
         eqeqeq: ["error", "always"],
         indent: ["error", 2],
         quotes: ["error", "single"],

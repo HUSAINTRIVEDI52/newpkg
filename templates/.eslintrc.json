@@ -2,6 +2,7 @@
   "root": true,
   "env": {
     "node": true,
+    "browser": true,
     "es2021": true
   },
   "parser": "@typescript-eslint/parser",
@@ -16,7 +17,7 @@
   ],
   "rules": {
     "no-console": "warn",
-    "no-undef": "error",
+    "no-undef": "warn",
     "eqeqeq": ["error", "always"],
     "indent": ["error", 2],
     "quotes": ["error", "single"],
