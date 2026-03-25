@@ -176,11 +176,11 @@ if (isPostInstall) {
       logInfo('Monorepo detected — hooks at git root, config files at project root.');
     }
 
-    const { installDevDependency } = require('../lib/packageManager');
+    // Dependencies are now handled within setupESLintConfig for better version/TS detection
     await installHusky(gitRoot);
     await installGitleaks(gitRoot);
     await installSonarScanner();
-    await installDevDependency(['eslint', '@eslint/js']);
+    // await installDevDependency(['eslint', '@eslint/js']); // Removed: handled by setupESLintConfig()
 
     // Setup ESLint with TypeScript support
     await setupESLintConfig();

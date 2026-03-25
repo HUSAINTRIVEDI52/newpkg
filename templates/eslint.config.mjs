@@ -1,4 +1,6 @@
 import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import prettier from "eslint-config-prettier";
 
 // Common globals for JS/TS projects
 const commonGlobals = {
@@ -29,34 +31,41 @@ try {
 
 const jsConfig = {
     files: ["**/*.js", "**/*.mjs", "**/*.cjs", "**/*.jsx"],
-    ...js.configs.recommended,
-    rules: {
-        ...js.configs.recommended.rules,
-        "no-unused-vars": ["error", {
-            "varsIgnorePattern": "^React$",
-            "argsIgnorePattern": "^_"
-        }],
-        "no-undef": "error",
-        "no-console": "error",
-        "no-debugger": "error",
-        "no-constant-condition": "error",
-        "no-empty": "error",
-        "no-extra-semi": "error",
-        "no-inner-declarations": "error",
-        "no-irregular-whitespace": "error",
-        "no-mixed-spaces-and-tabs": "error",
-        "no-sparse-arrays": "error",
-        "no-unexpected-multiline": "error",
-        "no-unreachable": "error",
-        "no-unsafe-finally": "error",
-        "no-unsafe-negation": "error",
-        "use-isnan": "error",
-        "valid-typeof": "error",
+    plugins: {
+        import: importPlugin,
     },
     languageOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
         globals: commonGlobals,
+    },
+    settings: {
+        "import/resolver": {
+            node: true,
+        },
+    },
+    rules: {
+        ...js.configs.recommended.rules,
+        ...importPlugin.configs.recommended.rules,
+        "no-undef": "error",
+        "no-unreachable": "error",
+        "no-unsafe-finally": "error",
+        "valid-typeof": "error",
+        eqeqeq: ["error", "always"],
+        curly: ["error", "all"],
+        "no-eval": "error",
+        "no-implied-eval": "error",
+        "no-return-await": "error",
+        "no-useless-catch": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "no-unused-vars": "off",
+        "import/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
+        "import/no-unresolved": "error",
+        "import/no-duplicates": "error",
+        "no-console": ["warn"],
+        "no-debugger": "error",
+        semi: ["error", "always"],
     },
 };
 
@@ -67,44 +76,54 @@ const tsConfig = (tseslint && tsparser) ? {
         parserOptions: {
             ecmaVersion: "latest",
             sourceType: "module",
+            project: ["./tsconfig.json"],
         },
     },
     plugins: {
         "@typescript-eslint": tseslint,
+        import: importPlugin,
+    },
+    settings: {
+        "import/resolver": {
+            typescript: true,
+            node: true,
+        },
     },
     rules: {
         ...tseslint.configs.recommended.rules,
+        ...tseslint.configs["recommended-requiring-type-checking"]?.rules,
+        ...importPlugin.configs.recommended.rules,
+        ...importPlugin.configs.typescript.rules,
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error", {
-            "varsIgnorePattern": "^React$",
-            "argsIgnorePattern": "^_"
-        }],
-        "@typescript-eslint/no-explicit-any": "error",
-        "@typescript-eslint/no-non-null-assertion": "error"
+        "no-shadow": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-use-before-define": "error",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-non-null-assertion": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/strict-boolean-expressions": "warn",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-misused-promises": "error",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-inferrable-types": "warn",
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-nullish-coalescing": "error",
+        "import/order": ["error", { "groups": ["builtin", "external", "internal"], "newlines-between": "always" }],
+        "import/no-unresolved": "error",
+        "import/no-duplicates": "error",
+        "no-console": ["warn"],
+        "no-debugger": "error",
+        semi: ["error", "always"],
     },
 } : null;
-
-const tsFallback = {
-    files: ["**/*.ts", "**/*.tsx"],
-    languageOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        globals: commonGlobals,
-    },
-    rules: {
-        "no-unused-vars": "warn",
-    },
-};
-
-// If TS files are present but plugins failed to load, use the fallback to avoid "File ignored" warnings.
-// Note: This might still cause syntax errors if the default parser can't handle the TS syntax,
-// but it's better than silent ignores for users who expect linting.
-if (!tsConfig) {
-    console.warn("⚠️ [ESLint] TypeScript plugins not found. Using basic JS rules for .ts files.");
-}
 
 export default [
     js.configs.recommended,
     jsConfig,
-    ...(tsConfig ? [tsConfig] : [tsFallback]),
+    ...(tsConfig ? [tsConfig] : []),
+    prettier, // Turn off conflicting rules
 ];
